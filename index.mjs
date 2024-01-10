@@ -1,6 +1,7 @@
 import express from 'express';
 import postRoutes from './routes/posts.mjs';
 import commentRoutes from './routes/comments.mjs';
+import authRoutes from './routes/auth.mjs';
 import dbConnection from './db/index.mjs';
 
 dbConnection.on('error', () => console.log('DB connect error!'));
@@ -12,6 +13,7 @@ const port = 8933;
 app.use(express.json());
 
 app.use('', postRoutes);
+app.use('', authRoutes);
 app.use('', commentRoutes);
 
 app.get('/', (req, res) => 

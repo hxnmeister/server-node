@@ -38,14 +38,54 @@ const add = async (req, res) =>
     }
 };
 
-const update = (req, res) =>
+const update = async (req, res) =>
 {
-
+    try 
+    {
+        await Post.findByIdAndUpdate(req.params.id, req.body);
+        res.json
+        (
+            {
+                status: "success",
+                message: "post updated!"
+            }
+        )
+    } 
+    catch
+    {
+        res.status(400).json
+        (
+            {
+                status: "error",
+                message: "post not found!"
+            }
+        );
+    }
 };
 
-const remove = (req, res) =>
+const remove = async (req, res) =>
 {
-
+    try 
+    {
+        await Post.findByIdAndDelete(req.params.id);
+        res.json
+        (
+            {
+                status: "success",
+                message: "post deleted!"
+            }
+        )
+    } 
+    catch
+    {
+        res.status(400).json
+        (
+            {
+                status: "error",
+                message: "post not found!"
+            }
+        );
+    }
 };
 
 export default { all, getById, add, update, remove };
