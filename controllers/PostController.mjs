@@ -25,7 +25,17 @@ const getById = async (req, res) =>
 
 const add = async (req, res) =>
 {
-    
+    try 
+    {
+        const post = new Post(req.body);
+        await post.save();
+
+        res.json(post);
+    } 
+    catch (error) 
+    {
+        res.status(400).json(error);
+    }
 };
 
 const update = (req, res) =>

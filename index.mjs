@@ -9,6 +9,8 @@ dbConnection.on('connected', () => console.log('DB connected!'));
 const app = express();
 const port = 8933;
 
+app.use(express.json());
+
 app.use('', postRoutes);
 app.use('', commentRoutes);
 
