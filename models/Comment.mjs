@@ -3,11 +3,6 @@ import mongoose from "mongoose";
 const commentSchema = new mongoose.Schema
 (
     {
-        userName:
-        {
-            type: String,
-            required: true
-        },
         text:
         {
             type: String,
@@ -16,8 +11,17 @@ const commentSchema = new mongoose.Schema
         date: 
         {
             type: Date,
-            required: true,
             default: Date.now
+        },
+        relatedPost:
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Post'
+        },
+        user:
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
         }
     }
 );
