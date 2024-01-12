@@ -1,8 +1,39 @@
 import Post from '../models/Post.mjs';
 
-const all = async (req, res) => //get all posts
+const all = async (req, res) => 
 {
     res.json(await Post.find({}).exec());
+};
+
+const postsWithComments = async (req, res) =>
+{
+    try 
+    {
+        res.json(await Post.aggregate
+            (
+                [
+                    {
+                        $lookup:
+                        {
+                            from: 'comments',
+                            localField: '_id',
+                            foreignField: 'relatedPost',
+                            as: 'comments'
+                        }
+                    }
+                ]
+            ));
+    } 
+    catch (error) 
+    {
+        res.status(400).json
+        (
+            {
+                status: 'error',
+                message: 'no available data!'
+            }
+        );
+    }
 };
 
 const getById = async (req, res) =>
@@ -88,4 +119,4 @@ const remove = async (req, res) =>
     }
 };
 
-export default { all, getById, add, update, remove };
+export default { all, getById, add, update, remove, postsWithComments };

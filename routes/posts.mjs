@@ -4,6 +4,7 @@ import PostController from '../controllers/PostController.mjs';
 const router = express.Router();
 
 router.get('/posts', PostController.all);
+router.get('/posts-with-commentaries', PostController.postsWithComments);
 router.post('/posts', PostController.add);
 
 router.get('/posts/:id', PostController.getById);
