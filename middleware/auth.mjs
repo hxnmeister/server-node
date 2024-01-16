@@ -8,7 +8,6 @@ const auth = (req, res, next) =>
         const verifyToken = jwt.verify(token, 'random');
 
         req.user = verifyToken;
-        console.log(req.user);
 
         next();
     }
